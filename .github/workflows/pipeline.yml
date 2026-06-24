@@ -45,3 +45,24 @@ jobs:
       - name: Validate bottomUp
         run: sbt test
         working-directory: ./target/bottomUp
+
+      - name: Run topDown
+        run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryScalaToDiskMain topDown"
+
+      - name: Validate topDown
+        run: sbt test
+        working-directory: ./target/topDown
+
+      - name: Run topDownWithMemo
+        run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryScalaToDiskMain topDownMemo"
+
+      - name: Validate topDownWithMemo
+        run: sbt test
+        working-directory: ./target/topDownMemo
+
+      - name: Run bottomUp
+        run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryScalaToDiskMain bottomUp"
+
+      - name: Validate bottomUp
+        run: sbt test
+        working-directory: ./target/bottomUp

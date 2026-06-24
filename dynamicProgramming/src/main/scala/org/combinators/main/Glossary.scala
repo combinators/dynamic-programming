@@ -158,7 +158,6 @@ object GlossaryToDiskMain extends IOApp {
           main.runDirectToDisc(targetDirectory, bottom_up_files())
         }
 
-        _ <- IO { println("Make sure you run the scripts to 'fix' the generated code.") }
       } yield result
     }
 }

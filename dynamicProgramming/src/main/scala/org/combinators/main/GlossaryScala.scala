@@ -23,7 +23,7 @@ import scala.collection.Seq
 
 class GlossaryScala {
 
-  val persistable = FileWithPathPersistable[FileWithPath]
+  val persistable: Aux[FileWithPath] = FileWithPathPersistable[FileWithPath]
 
   private def directToDiskTransaction(targetDirectory: Path, files: Seq[FileWithPath]): IO[Unit] = {
     IO {
@@ -126,15 +126,15 @@ object GlossaryScalaToDiskMain extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] = {
     val choice = if (args.isEmpty) {
-      bottomUp                    // <------ CHANGE this manually when you run, to generate topDown or topDownWithMemo -- BOTTOMUP NOT YET WORKING
+      bottomUp                    // arbitrary
     } else {
-      args(0).toLowerCase match {
+      args.head.toLowerCase match {
         case "topdown" => topDown
         case "bottomup" => bottomUp
         case "topdownmemo" => topDownWithMemo
         case "topdownwithmemo" => topDownWithMemo
         case _ =>
-          print (s"Unknown option: ${args(0)}. Must be either 'topDown', 'bottomUp' or 'topDownMemo'.")
+          print (s"Unknown option: ${args.head}. Must be either 'topDown', 'bottomUp' or 'topDownMemo'.")
           ???
       }
     }
@@ -144,7 +144,7 @@ object GlossaryScalaToDiskMain extends IOApp {
     for {
         _ <- IO {
           println("Initializing Generator...")
-          println(s"Output will appear in: ${targetDirectory}")
+          println(s"Output will appear in: $targetDirectory")
         }
         main <- IO { new Glossary() }
 
@@ -156,7 +156,6 @@ object GlossaryScalaToDiskMain extends IOApp {
           main.runDirectToDisc(targetDirectory, bottom_up_files())
         }
 
-        _ <- IO { println("Make sure you run the scripts to 'fix' the generated code.") }
       } yield result
     }
 }
