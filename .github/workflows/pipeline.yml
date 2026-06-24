@@ -18,7 +18,15 @@ jobs:
       - name: Setup Java and SBT
         uses: coursier/setup-action@v1 # Installs Java and sbt
         with:
-          jvm: 'temurin:25'
+          distribution: temurin
+          java-version: 25
+          cache: sbt
+
+      - name: Setup sbt launcher
+        uses: sbt/setup-sbt@v1
+
+      - name: Show info
+        run: ls -argtl .
 
       - name: Run topDown
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain topDown"
