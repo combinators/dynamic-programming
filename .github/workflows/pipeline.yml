@@ -1,0 +1,31 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - devel        # This workflow will only run on pushes to the 'devel' branch
+  pull_request:
+    branches:
+      - devel        # This workflow will only run on pull requests targeting the 'devel' branch
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: echo "to be determined"
+      - name: Run topDown
+        run: dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain topDown
+      - name: Validate topDown
+        run: sbt test
+        working-directory: ./target/topDown
+      - name: Run topDownWithMemo
+        run: dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain topDownMemo
+      - name: Validate topDownWithMemo
+        run: sbt test
+        working-directory: ./target/topDownMemo
+      - name: Run bottomUp
+        run: dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain bottomUp
+      - name: Validate bottomUp
+        run: sbt test
+        working-directory: ./target/bottomUp
