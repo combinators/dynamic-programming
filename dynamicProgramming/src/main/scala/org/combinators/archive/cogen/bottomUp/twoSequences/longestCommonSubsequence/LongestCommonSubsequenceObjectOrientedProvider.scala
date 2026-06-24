@@ -158,7 +158,7 @@ trait LongestCommonSubsequenceObjectOrientedProvider extends TwoSequencesUtility
       import classCapabilities._
       for {
         _ <- addMethod(names.mangle("compute"), make_compute_method())
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle("LongestCommonSubsequence"))

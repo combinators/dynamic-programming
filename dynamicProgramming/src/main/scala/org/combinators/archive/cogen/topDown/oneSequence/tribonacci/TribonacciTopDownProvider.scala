@@ -123,7 +123,7 @@ trait TribonacciTopDownProvider extends Utility {
       import classCapabilities._
       for {
         _ <- addMethod(names.mangle("compute"), make_compute_method())
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle("Tribonacci"))
@@ -133,7 +133,6 @@ trait TribonacciTopDownProvider extends Utility {
   def makeTestCases(): Generator[MethodBodyContext, Seq[Expression]] = {
     import eqls.equalityCapabilities.*
     import paradigm.methodBodyCapabilities.*
-    import syntax._
 
     // 0, 1, 1, 2, 4, 7, 13, 24, ...
     //
@@ -183,31 +182,13 @@ trait TribonacciTopDownProvider extends Utility {
   }
 
   def implement(): Generator[ProjectContext, Unit] = {
-    //
-    //    var isTopDown = false
-    //
-    //    option match {
-    //      case td: TopDown =>
-    //        memo = td.memo
-    //        isTopDown = true
-    //      case _: BottomUp =>
-    //        isTopDown = false
-    //    }
-    //
-    //    for {
-    //      _ <- if (isTopDown) {
-    //        make_top_down(model)
-    //      } else {
-    //        make_bottom_up(model)
-    //      }
-    //    } yield ()
 
     for {
       _ <- makeSimpleDP()
-            _ <- paradigm.projectCapabilities.addCompilationUnit(
-              paradigm.compilationUnitCapabilities.addTestSuite(testName, makeTestCase("DP"))
-            )
-    } yield None
+      _ <- paradigm.projectCapabilities.addCompilationUnit(
+        paradigm.compilationUnitCapabilities.addTestSuite(testName, makeTestCase("DP"))
+      )
+    } yield ()
   }
 }
 

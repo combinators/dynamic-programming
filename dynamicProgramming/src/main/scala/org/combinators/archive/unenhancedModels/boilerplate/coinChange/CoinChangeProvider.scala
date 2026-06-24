@@ -71,7 +71,7 @@ trait CoinChangeProvider extends DPObjectOrientedProvider {
           solType <- ooParadigm.methodBodyCapabilities.findClass(names.mangle(implementation))
           arrayType <- toTargetLanguageType(TypeRep.Array(TypeRep.Int))
 
-          expr <- create_int_nd_array(input_value.toIndexedSeq, dimensions)
+          expr <- create_int_nd_array(input_value, dimensions)
           variable <- impParadigm.imperativeCapabilities.declareVar(names.mangle("test"), arrayType, Some(expr))
           eleven <- paradigm.methodBodyCapabilities.reify(TypeRep.Int, 11)
           sol <- ooParadigm.methodBodyCapabilities.instantiateObject(solType, Seq(variable, eleven))

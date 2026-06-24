@@ -155,7 +155,7 @@ trait UncrossedLinesObjectOrientedProvider extends TwoSequencesUtility {
 
       for {
         _ <- addMethod(names.mangle("compute"), make_compute_method())
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle("UncrossedLines"))

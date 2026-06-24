@@ -73,7 +73,7 @@ trait EnhancedDPObjectOrientedProvider extends EnhancedDPProvider with EnhancedU
         val type_rep = constructedArrayType(litArr.dimensions.length, TypeRep.Int)
         for {
             arrayType <- toTargetLanguageType(type_rep)
-            expr <- create_int_nd_array(litArr.literal.toIndexedSeq, litArr.dimensions)
+            expr <- create_int_nd_array(litArr.literal, litArr.dimensions)
             variable <- impParadigm.imperativeCapabilities.declareVar(names.mangle("ar" + VariableCounter.getAndIncrement()), arrayType, Some(expr))
           } yield Seq(variable)
 

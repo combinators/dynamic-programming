@@ -306,7 +306,7 @@ trait HouseRobberObjectOrientedProvider {
       for {
         _ <- addMethod(names.mangle("rob"), make_maxloot_compute())
         _ <- addMethod(names.mangle("solution"), make_solution())
-      } yield None
+      } yield ()
     }
     addClassToProject(makeClass, names.mangle(clazzName))
   }

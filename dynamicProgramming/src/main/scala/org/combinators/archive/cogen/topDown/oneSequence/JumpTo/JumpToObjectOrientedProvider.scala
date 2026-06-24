@@ -255,9 +255,9 @@ trait JumpToObjectOrientedProvider {
       for {
         _ <- addMethod(names.mangle("retrieveMax"), retireve_max())
         _ <- addMethod(names.mangle("minJumpsRecur"), minJumpRec())
-        _<- addMethod(names.mangle("minJumps"), minJumps())
+        _ <- addMethod(names.mangle("minJumps"), minJumps())
 
-      } yield None
+      } yield ()
     }
     addClassToProject(makeClass, names.mangle(clazzName))
   }

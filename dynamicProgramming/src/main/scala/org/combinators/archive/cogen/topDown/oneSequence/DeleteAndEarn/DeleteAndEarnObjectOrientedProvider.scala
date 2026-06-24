@@ -268,10 +268,6 @@ trait DeleteAndEarnObjectOrientedProvider {
     } yield(Some(ansValue))
   }
 
-
-
-
-
   /** Create the HouseRobber class with rob() method. */
   def makeClass(clazzName: String): Generator[ProjectContext, Unit] = {
     import ooParadigm.projectCapabilities._
@@ -280,9 +276,9 @@ trait DeleteAndEarnObjectOrientedProvider {
       for {
         _ <- addMethod(names.mangle("Bubble_sort"), Bubble_sort())
         _ <- addMethod(names.mangle("helper"), helper())
-        _<- addMethod(names.mangle("solution"), solution())
+        _ <- addMethod(names.mangle("solution"), solution())
 
-      } yield None
+      } yield ()
     }
     addClassToProject(makeClass, names.mangle(clazzName))
   }

@@ -95,7 +95,7 @@ trait Utility {
   }
 
 
-  def generate_DP_int_array_test[FS](clazz:Name, tests:Seq[DPExample[Seq[Int],Int,FS]]): Generator[MethodBodyContext, Seq[Expression]] = {
+  def generate_DP_int_array_test[FS](clazz:Name, tests:Seq[DPExample[Array[Int],Int,FS]]): Generator[MethodBodyContext, Seq[Expression]] = {
     import eqls.equalityCapabilities.*
     import paradigm.methodBodyCapabilities.*
     for {
@@ -133,15 +133,8 @@ trait Utility {
       _ <- setParameters(params)
       _ <- setReturnType(intType)
 
-//      ivar_outer <- impParadigm.imperativeCapabilities.declareVar(names.mangle(model.bounds.head.itArgName), intType, Some(zero))
-
-//      ijk <- model.bounds.foldLeft(Seq.empty[Expression]) { (acc, bound) =>
-//        acc :+
-//      }
-
       self <- ooParadigm.methodBodyCapabilities.selfReference()
       recursive_call <- ooParadigm.methodBodyCapabilities.getMember(self, retrieveName)
-//      application <- paradigm.methodBodyCapabilities.apply(recursive_call, ijk)
 
     } yield Some(recursive_call)
   }
@@ -496,7 +489,7 @@ trait Utility {
     } yield result
   }
 
-  def create_int_array(values:Seq[Int]) : Generator[MethodBodyContext, Expression] = {
+  def create_int_array(values:Array[Int]) : Generator[MethodBodyContext, Expression] = {
     import paradigm.methodBodyCapabilities.canReifyInMethodBody // needed for implicit arg to create
     for {
       translated_vals <- forEach(values) { value =>
@@ -510,7 +503,7 @@ trait Utility {
     } yield result
   }
 
-  def create_int_nd_array(values:Seq[Int], dimensions:Seq[Int]) : Generator[MethodBodyContext, Expression] = {
+  def create_int_nd_array(values:Array[Int], dimensions:Seq[Int]) : Generator[MethodBodyContext, Expression] = {
     import paradigm.methodBodyCapabilities.canReifyInMethodBody // needed for implicit arg to create
     for {
       translated_vals <- forEach(values) { value =>

@@ -135,7 +135,7 @@ trait MaxSubarrayObjectOrientedProvider extends Utility {
       import classCapabilities._
       for {
         _ <- addMethod(names.mangle("compute"), make_compute_method())
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle("MaxSubarray"))
