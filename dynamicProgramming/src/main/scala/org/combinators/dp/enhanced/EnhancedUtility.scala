@@ -23,7 +23,6 @@ trait EnhancedUtility {
 
   import paradigm._
   import syntax._
-  import ooParadigm._
 
   def constructedArrayType(level:Int, baseType:TypeRep): TypeRep = {
     level match {
@@ -59,42 +58,6 @@ trait EnhancedUtility {
     }
   }
 
-//  def helper_method_type(model:EnhancedModel) : Generator[MethodBodyContext, Type] = {
-//    import paradigm.methodBodyCapabilities._
-//
-//    model.subproblemType match {
-//      case _:IntegerType => for {
-//        intType <- toTargetLanguageType(TypeRep.Int)
-//      } yield intType
-//
-//      case _:CharType => for {
-//        charType <- toTargetLanguageType(TypeRep.Char)
-//      } yield charType
-//
-//      case _:BooleanType => for {
-//        boolType <- toTargetLanguageType(TypeRep.Boolean)
-//      } yield boolType
-//
-//      case _:StringType => for {
-//        strType <- toTargetLanguageType(TypeRep.String)
-//      } yield strType
-//
-//      case _ => ???
-//    }
-//  }
-
-//  def helper_method_type_in_class(model:EnhancedModel) : TypeRep = {
-//
-//    model.subproblemType match {
-//      case _:IntegerType => TypeRep.Int
-//      case _:CharType => TypeRep.Char
-//      case _:BooleanType => TypeRep.Boolean
-//      case _:StringType => TypeRep.String
-//
-//      case _ => ???
-//    }
-//  }
-
   def helper_default(model:EnhancedModel) : Generator[MethodBodyContext, Expression ] = {
 
         model.subproblemType match {
@@ -111,8 +74,6 @@ trait EnhancedUtility {
   }
 
   def helper_problemType(model:EnhancedModel) : TypeRep = {
-    import ooParadigm.constructorCapabilities._
-
     model.subproblemType match {
       case _:IntegerType => TypeRep.Int
       case _:CharType => TypeRep.Char

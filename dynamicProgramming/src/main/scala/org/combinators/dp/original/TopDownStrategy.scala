@@ -6,7 +6,6 @@ import org.combinators.cogen.paradigm.control.Imperative
 import org.combinators.cogen.paradigm.ffi.*
 import org.combinators.cogen.paradigm.{AnyParadigm, Generics, ObjectOriented, ParametricPolymorphism}
 import org.combinators.cogen.{Command, NameProvider, TypeRep}
-import org.combinators.models.*
 import org.combinators.models.original.Model
 /**
  * Concepts necessary to realize top-down solutions
@@ -78,7 +77,7 @@ trait TopDownStrategy extends Utility {
         get_call <- paradigm.methodBodyCapabilities.apply(get_method, Seq(args.head._3))
         stmt1 <- impParadigm.imperativeCapabilities.returnStmt(get_call)
         _ <- addBlockDefinitions(Seq(stmt1))
-      } yield None, Seq.empty)
+      } yield (), Seq.empty)
       _ <- addBlockDefinitions(Seq(check_if))
 
       helper_method <- ooParadigm.methodBodyCapabilities.getMember(self, helperName)
@@ -160,7 +159,7 @@ trait TopDownStrategy extends Utility {
         finalTpe <- applyType(mapClass, Seq(keyType, valueType))
 
         _ <- addField(memoName, finalTpe)
-      } yield None
+      } yield ()
     }
 
     def create_memo_helper(): Generator[MethodBodyContext, Option[Expression]] = {
@@ -204,7 +203,7 @@ trait TopDownStrategy extends Utility {
 
         _ <- addMethod(helperName, outer_helper(useMemo, model))
         _ <- addMethod(computeName, make_compute_method(model))
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle(model.problem))
@@ -218,7 +217,7 @@ trait TopDownStrategy extends Utility {
     for {
       av <- impParadigm.imperativeCapabilities.returnStmt(exp)
       _ <- addBlockDefinitions(Seq(av))
-    } yield None
+    } yield ()
   }
 
   /**
@@ -235,7 +234,6 @@ trait TopDownStrategy extends Utility {
    * @return
    */
   def process_inner_helper(useMemo:Boolean, model:Model): Generator[paradigm.MethodBodyContext, Option[Expression]] = {
-    import AnyParadigm.syntax.*
     import paradigm.methodBodyCapabilities.*
 
     val real_cases = model.cases.filter(p => p._1.isDefined) // MUST be at least one.
@@ -265,7 +263,7 @@ trait TopDownStrategy extends Utility {
           resexp <- explore(first_case._2, memoize=useMemo, symbolTable = Map.empty)
           av <- impParadigm.imperativeCapabilities.returnStmt(resexp)
           _ <- addBlockDefinitions(Seq(av))
-        } yield None
+        } yield ()
         ,
         // collection of (condition, block) for all remaining cases
         all_rest

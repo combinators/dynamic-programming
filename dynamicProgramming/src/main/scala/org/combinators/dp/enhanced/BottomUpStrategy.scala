@@ -434,7 +434,7 @@ trait BottomUpStrategy extends Utility with EnhancedUtility {
         // Trying to direct to appropriate place
         _ <- addMethod(computeName, make_bottom_up_compute_method_recursive(model, params))
 
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle(model.problem))

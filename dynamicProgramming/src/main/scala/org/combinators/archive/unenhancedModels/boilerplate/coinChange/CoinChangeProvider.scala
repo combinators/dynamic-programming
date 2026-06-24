@@ -8,7 +8,7 @@ import org.combinators.cogen.paradigm.ffi.{Arithmetic, Arrays, Assertions, Boole
 import org.combinators.cogen.paradigm.{AnyParadigm, Generics, ObjectOriented, ParametricPolymorphism}
 import org.combinators.cogen.{AbstractSyntax, NameProvider, TypeRep}
 import org.combinators.dp.original.DPObjectOrientedProvider
-import org.combinators.models.{LiteralArray, LiteralInt, LiteralString, UnitExpression}
+import org.combinators.models.{LiteralArray, LiteralInt, LiteralString}
 
 /** 
  * Partially working implementation of CoinChangeProvider.
@@ -71,7 +71,7 @@ trait CoinChangeProvider extends DPObjectOrientedProvider {
           solType <- ooParadigm.methodBodyCapabilities.findClass(names.mangle(implementation))
           arrayType <- toTargetLanguageType(TypeRep.Array(TypeRep.Int))
 
-          expr <- create_int_nd_array(input_value, dimensions)
+          expr <- create_int_nd_array(input_value.toIndexedSeq, dimensions)
           variable <- impParadigm.imperativeCapabilities.declareVar(names.mangle("test"), arrayType, Some(expr))
           eleven <- paradigm.methodBodyCapabilities.reify(TypeRep.Int, 11)
           sol <- ooParadigm.methodBodyCapabilities.instantiateObject(solType, Seq(variable, eleven))

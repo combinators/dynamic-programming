@@ -51,7 +51,7 @@ trait BottomUpStrategy extends Utility {
     for {
       av <- impParadigm.imperativeCapabilities.assignVar(dp_i, exp)
       _ <- addBlockDefinitions(Seq(av))
-    } yield None
+    } yield ()
   }
 
   def make_bottom_up_compute_method_nest_3(model: Model): Generator[paradigm.MethodBodyContext, Option[Expression]] = {
@@ -128,7 +128,7 @@ trait BottomUpStrategy extends Utility {
             resexp <- explore(first_case._2, memoize = false, bottomUp = Some(dp), symbolTable = symbol_table)
             av <- impParadigm.imperativeCapabilities.assignVar(dp_o_m_i, resexp)
             _ <- addBlockDefinitions(Seq(av))
-          } yield None,
+          } yield (),
           all_rest,
           Some(for {
             result_exp <- explore(elseCase.head._2, memoize = false, bottomUp = Some(dp), symbolTable = symbol_table)
@@ -245,7 +245,7 @@ trait BottomUpStrategy extends Utility {
             resexp <- explore(first_case._2, memoize = false,  bottomUp = Some(dp), symbolTable= oi_map)
             av <- impParadigm.imperativeCapabilities.assignVar(dp_o_i, resexp)
             _ <- addBlockDefinitions(Seq(av))
-          } yield None
+          } yield ()
           ,
           // collection of (condition, block) for all remaining cases
           all_rest
@@ -342,7 +342,7 @@ trait BottomUpStrategy extends Utility {
             resexp <- explore(first_case._2, memoize = false, bottomUp = Some(dp), symbolTable = Map("i" -> ivar))
             av <- impParadigm.imperativeCapabilities.assignVar(dp_i, resexp)
             _ <- addBlockDefinitions(Seq(av))
-          } yield None
+          } yield ()
           ,
           // collection of (condition, block) for all remaining cases
           all_rest
@@ -440,7 +440,7 @@ trait BottomUpStrategy extends Utility {
           } yield None
 
         }
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle(model.problem))

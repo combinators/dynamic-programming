@@ -96,7 +96,6 @@ trait Utility {
 
 
   def generate_DP_int_array_test[FS](clazz:Name, tests:Seq[DPExample[Seq[Int],Int,FS]]): Generator[MethodBodyContext, Seq[Expression]] = {
-    import AnyParadigm.syntax.*
     import eqls.equalityCapabilities.*
     import paradigm.methodBodyCapabilities.*
     for {
@@ -274,7 +273,7 @@ trait Utility {
 
       intType <- toTargetLanguageType(TypeRep.Int)
       _ <- setReturnType(intType)                         // should always be int, but could be stored in Model
-    } yield None
+    } yield ()
   }
 
 

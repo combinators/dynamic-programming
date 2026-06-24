@@ -109,7 +109,7 @@ trait TopDownStrategy extends Utility with EnhancedUtility {
         get_call <- maps.mapCapabilities.getOrElse(memo_field, key_var, helper_default)
         stmt1 <- impParadigm.imperativeCapabilities.returnStmt(get_call)
         _ <- addBlockDefinitions(Seq(stmt1))
-      } yield None, Seq.empty)
+      } yield (), Seq.empty)
       _ <- addBlockDefinitions(Seq(check_if))
 
       helper_method <- ooParadigm.methodBodyCapabilities.getMember(self, helperName)
@@ -192,16 +192,12 @@ trait TopDownStrategy extends Utility with EnhancedUtility {
 
     def makeMemo(keyTypeRep:TypeRep, valueTypeRep:TypeRep) : Generator[ClassContext, Unit] = {
       import classCapabilities._
-      import genericsParadigm.classCapabilities._
 
       for {
-//        mapClass <- ooParadigm.classCapabilities.findClass(
-//          names.mangle("java"), names.mangle("util"), names.mangle("HashMap")
-//        )
         actual_type <- toTargetLanguageType(TypeRep.Map(keyTypeRep, valueTypeRep))
 
         _ <- addField(memoMapName, actual_type)
-      } yield None
+      } yield ()
     }
 
     def create_memo_helper(): Generator[MethodBodyContext, Option[Expression]] = {
@@ -251,7 +247,7 @@ trait TopDownStrategy extends Utility with EnhancedUtility {
 
         _ <- addMethod(helperName, outer_helper(useMemo, model))
         _ <- addMethod(computeName, make_compute_method(model))
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle(model.problem))
@@ -266,7 +262,7 @@ trait TopDownStrategy extends Utility with EnhancedUtility {
     for {
       av <- impParadigm.imperativeCapabilities.returnStmt(exp)
       _ <- addBlockDefinitions(Seq(av))
-    } yield None
+    } yield ()
   }
 
   def exploreReturns(defs:DefinitionStatement, symbolTable: Map[String,Expression], memoize:Boolean = false) : Generator[paradigm.MethodBodyContext, Seq[Statement]] = {
@@ -487,12 +483,9 @@ trait TopDownStrategy extends Utility with EnhancedUtility {
    * @return
    */
   def process_inner_helper(useMemo:Boolean, model:EnhancedModel): Generator[paradigm.MethodBodyContext, Option[Expression]] = {
-    import AnyParadigm.syntax._
     import paradigm.methodBodyCapabilities._
 
-
     // could possibly have a definition that has NONE as the guard. None for now.
-
     for {
       symbolTable <- symbol_table_from_solution(model.solution)
       ifstmt <- generate(model.definition, symbolTable, memoize=useMemo)

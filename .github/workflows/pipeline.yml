@@ -25,9 +25,6 @@ jobs:
       - name: Setup sbt launcher
         uses: sbt/setup-sbt@v1
 
-      - name: Show info
-        run: ls -argtl .
-
       - name: Run topDown
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain topDown"
 

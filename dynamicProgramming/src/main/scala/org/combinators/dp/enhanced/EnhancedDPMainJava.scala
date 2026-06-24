@@ -14,7 +14,7 @@ import org.combinators.cogen.{FileWithPath, FileWithPathPersistable}
 import FileWithPathPersistable.*
 import org.combinators.dp.original.{BottomUp, GenerationOption, TopDown}
 import org.combinators.ep.language.java.paradigm.ObjectOriented
-import org.combinators.ep.language.java.{CodeGenerator, JavaNameProvider, PartiallyBoxed, Syntax, Unboxed}
+import org.combinators.ep.language.java.{CodeGenerator, JavaNameProvider, Syntax, Unboxed}
 import org.combinators.models.*
 
 import java.nio.file.{Path, Paths}
