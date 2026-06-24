@@ -58,7 +58,6 @@ trait FibTestObjectOrientedProvider extends OneSequencesUtility with Utility {
 
   def make_compute_method(): Generator[paradigm.MethodBodyContext, Option[Expression]] = {
     import paradigm.methodBodyCapabilities._
-    import ooParadigm.methodBodyCapabilities._
     for {
       _ <- make_compute_method_signature()
       args <- getArguments()
@@ -114,7 +113,7 @@ trait FibTestObjectOrientedProvider extends OneSequencesUtility with Utility {
       import classCapabilities._
       for {
         _ <- addMethod(names.mangle("compute"), make_compute_method())
-      } yield None
+      } yield ()
     }
 
     addClassToProject(makeClass, names.mangle("FibTest"))

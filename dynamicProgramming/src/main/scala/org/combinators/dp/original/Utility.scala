@@ -475,10 +475,10 @@ trait Utility {
     }
   }
 
-  def create_string_array(values:Seq[String]) : Generator[MethodBodyContext, Expression] = {
+  def create_string_array(values:Array[String]) : Generator[MethodBodyContext, Expression] = {
     import paradigm.methodBodyCapabilities.canReifyInMethodBody   // needed for implicit arg to create
     for {
-      translated_vals <- forEach(values) { value =>
+      translated_vals <- forEach(values.toIndexedSeq) { value =>
         for {
           reified_value <- paradigm.methodBodyCapabilities.reify(TypeRep.String, value)
         } yield reified_value
@@ -492,7 +492,7 @@ trait Utility {
   def create_int_array(values:Array[Int]) : Generator[MethodBodyContext, Expression] = {
     import paradigm.methodBodyCapabilities.canReifyInMethodBody // needed for implicit arg to create
     for {
-      translated_vals <- forEach(values) { value =>
+      translated_vals <- forEach(values.toIndexedSeq) { value =>
         for {
           reified_value <- paradigm.methodBodyCapabilities.reify(TypeRep.Int, value)
         } yield reified_value
@@ -506,7 +506,7 @@ trait Utility {
   def create_int_nd_array(values:Array[Int], dimensions:Seq[Int]) : Generator[MethodBodyContext, Expression] = {
     import paradigm.methodBodyCapabilities.canReifyInMethodBody // needed for implicit arg to create
     for {
-      translated_vals <- forEach(values) { value =>
+      translated_vals <- forEach(values.toIndexedSeq) { value =>
         for {
           reified_value <- paradigm.methodBodyCapabilities.reify(TypeRep.Int, value)
         } yield reified_value
