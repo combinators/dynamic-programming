@@ -3,10 +3,12 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main        # This workflow will only run on pushes to the 'devel' branch
+      - main        # This workflow will only run on pushes to the 'devel' or 'main' branch
+      - devel
   pull_request:
     branches:
-      - main        # This workflow will only run on pull requests targeting the 'devel' branch
+      - main        # This workflow will only run on pull requests targeting the 'devel' or 'main' branch
+      - devel
 
 jobs:
   build-and-test:
@@ -25,44 +27,44 @@ jobs:
       - name: Setup sbt launcher
         uses: sbt/setup-sbt@v1
 
-      - name: Run topDown
+      - name: Run Java topDown
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain topDown"
 
-      - name: Validate topDown
+      - name: Validate Java topDown
         run: sbt test
         working-directory: ./target/topDown
 
-      - name: Run topDownWithMemo
+      - name: Run Java topDownWithMemo
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain topDownMemo"
 
-      - name: Validate topDownWithMemo
+      - name: Validate Java topDownWithMemo
         run: sbt test
         working-directory: ./target/topDownMemo
 
-      - name: Run bottomUp
+      - name: Run Java bottomUp
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryToDiskMain bottomUp"
 
-      - name: Validate bottomUp
+      - name: Validate Java bottomUp
         run: sbt test
         working-directory: ./target/bottomUp
 
       - name: Run topDown
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryScalaToDiskMain topDown"
 
-      - name: Validate topDown
+      - name: Validate Scala topDown
         run: sbt test
         working-directory: ./target/topDown
 
-      - name: Run topDownWithMemo
+      - name: Run Scala topDownWithMemo
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryScalaToDiskMain topDownMemo"
 
-      - name: Validate topDownWithMemo
+      - name: Validate Scala topDownWithMemo
         run: sbt test
         working-directory: ./target/topDownMemo
 
-      - name: Run bottomUp
+      - name: Run Scala bottomUp
         run: sbt "dynamicProgramming/runMain org.combinators.main.GlossaryScalaToDiskMain bottomUp"
 
-      - name: Validate bottomUp
+      - name: Validate Scala bottomUp
         run: sbt test
         working-directory: ./target/bottomUp
